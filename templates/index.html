@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MiniBlog</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+    <section>
+        <div class="container  py-5 text-dark">
+          <div class="row d-flex justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-6">
+              <div class="card" style='background-color: #8CC0DE;'>
+                <div class="card-body p-4">
+                  <div class="d-flex flex-start w-100">
+                    <div class="w-100">
+                      <h5 style='color:white;'>Add Somethings</h5>
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            <div class="form-outline">
+                                <textarea class="form-control" name='text' maxlength="250" id="textAreaExample" rows="4"></textarea>
+                            </div>
+                            <div class="float-right mt-3">
+                                <button type="submit" class="btn" style='background-color:white; color:#8CC0DE;'>
+                                <b>Send</b>
+                                <i class="fas fa-long-arrow-alt-right ms-1"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {% if posts %}
+                {% for post in page_obj %}
+                    <div class="card mt-3" style='background-color: #8CC0DE;'>
+                        <div class="card-body">
+                        <p class="card-text" style='color:white;'>{{post.text}}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+                <div class="row mt-3">
+                    <div class="col-md-8 offset-md-2">
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination justify-content-center">
+                                {% if page_obj.has_previous %}
+                                    <li class="page-item">
+                                        <a class="page-link" style='background-color: #8CC0DE; color:white;' href="?page={{ page_obj.previous_page_number }}"><b>Previous</b></a>
+                                    </li>
+                                {% endif %}
+                
+                                <li class="page-item active">
+                                    <a class="page-link" style='background-color: #8CC0DE;' href="#">{{ page_obj.number }}</a>
+                                </li>
+                
+                                {% if page_obj.has_next %}
+                                    <li class="page-item">
+                                        <a class="page-link" style='background-color: #8CC0DE; color:white;' href="?page={{ page_obj.next_page_number }}"><b>Next</b></a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </section>
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>
