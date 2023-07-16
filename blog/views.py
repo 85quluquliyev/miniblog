@@ -3,7 +3,7 @@ from django.shortcuts import render
 from .models import Blog
 
 def index(request):
-    posts = Blog.objects.all()
+    posts = Blog.objects.all().order_by('-id')
     paginator = Paginator(posts, 5)  # Her sayfada 5 nesne
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
